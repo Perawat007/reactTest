@@ -35,10 +35,13 @@ const LoginBar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await Axios.post('https://54.254.200.112/auth/login/admin', {
+            /*const response = await Axios.post('https://54.254.200.112:5000/auth/login/admin', {
                 email,
                 password
-              });
+              });*/
+
+              const response = await Axios.get('http://54.254.200.112:5000/post/test');
+              console.log(response);
             if (response.data.token !== '')
             {
                 const accessToken = response.data.token;
@@ -47,7 +50,7 @@ const LoginBar = () => {
                 setUser('');
                 setPwd('');
                 setSuccess(true);
-                window.location.href ="/profile";
+                //window.location.href ="/profile";
             }
             else
             {
