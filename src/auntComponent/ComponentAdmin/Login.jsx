@@ -2,8 +2,6 @@ import React, {useRef, useState, useEffect, useContext } from 'react';
 import '../Login.css';
 import Axios from 'axios';
 
-//import axios from '../api/axios';
-
 const LoginBar = () => {
     //const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
@@ -37,7 +35,7 @@ const LoginBar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await Axios.post('https://54.254.200.112:5000/auth/login/admin', {
+            const response = await Axios.post('http://54.254.200.112:5000/auth/login/admin', {
                 email,
                 password
               });
@@ -54,7 +52,6 @@ const LoginBar = () => {
             else
             {
                 console.error(response?.status.JSON);
-                console.log(response.data.token)
             }
            
         } catch (err) {
