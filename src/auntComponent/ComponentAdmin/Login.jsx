@@ -35,7 +35,7 @@ const LoginBar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await Axios.post('https://54.254.200.112:5000/auth/login/admin', {
+            const response = await Axios.post('https://54.254.200.112/auth/login/admin', {
                 email,
                 password
               });
