@@ -24,7 +24,7 @@ function UpdateAgent(idAgent) {
     const [active, setActive] = useState('true');
 
     useEffect(() =>{
-       Axios.get("http://localhost:3000/post/agent/"+id, {
+       Axios.get("http://localhost:5000/post/agent/"+id, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -51,7 +51,7 @@ function UpdateAgent(idAgent) {
         "active" : active
       });
       
-      Axios.put("http://localhost:3000/post/updateAgent/"+id,raw,{
+      Axios.put("http://localhost:5000/post/updateAgent/"+id,raw,{
         headers: {
           'Authorization': `Bearer ${token}`
         }})

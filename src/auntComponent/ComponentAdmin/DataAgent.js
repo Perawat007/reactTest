@@ -63,7 +63,7 @@ export default function DataAgent(){
     },[])
 
     const DataGet = () =>{
-        Axios.get("http://54.254.200.112:5000/post/agent",{
+        Axios.get("http://localhost:5000/post/agent",{
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -104,7 +104,7 @@ export default function DataAgent(){
       "reqAction" : action
     });
     
-    Axios.post("http://54.254.200.112:5000/post/agent/credit/"+id,raw,{
+    Axios.post("http://localhost:5000/post/agent/credit/"+id,raw,{
       headers: {
         'Authorization': `Bearer ${token}`
       }})

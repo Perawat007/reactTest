@@ -45,7 +45,7 @@ function CreateData(props) {
         "role": role,
     });
 
-    Axios.post("http://localhost:3000/post/create",raw,{
+    Axios.post("http://localhost:5000/post/create",raw,{
       headers: {
         'Authorization': `Bearer ${token}`
       }})

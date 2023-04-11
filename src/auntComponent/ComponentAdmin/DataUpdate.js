@@ -40,7 +40,7 @@ function DataUpdate(props) {
         "email": email
       });
 
-      Axios.put("http://54.254.200.112:5000/post/update/"+id,raw,{
+      Axios.put("http://localhost:5000/post/update/"+id,raw,{
         headers: {
           'Authorization': `Bearer ${token}`
         }})

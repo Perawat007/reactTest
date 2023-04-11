@@ -59,7 +59,7 @@ export default function DataAgent(){
     },[])
 
     const DataGet = () =>{
-        Axios.get("http://54.254.200.112:5000/post/user",{
+        Axios.get("http://localhost:5000/post/user",{
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -78,7 +78,7 @@ export default function DataAgent(){
     };
     
     const DeleteData = id => {
-          Axios.delete("http://localhost:3000/post/delete/"+id,{
+          Axios.delete("http://localhost:5000/post/delete/"+id,{
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -104,7 +104,7 @@ export default function DataAgent(){
       "username": username,
       "active" : active
     });
-    Axios.put("http://54.254.200.112:5000/post/updateUser/"+id,raw,{
+    Axios.put("http://localhost:5000/post/updateUser/"+id,raw,{
       headers: {
         'Authorization': `Bearer ${token}`
       }})

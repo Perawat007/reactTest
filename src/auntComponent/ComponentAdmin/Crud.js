@@ -45,7 +45,7 @@ export default function Crud(){
     },[])
 
     const DataGet = () =>{
-        Axios.get("http://54.254.200.112:5000/post/admin",{
+        Axios.get("http://localhost:5000/post/admin",{
             headers: {
               'Authorization': `Bearer ${token}`
             }

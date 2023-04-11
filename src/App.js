@@ -11,9 +11,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Sidebar from './Component/Sidebar';
 import SidebarAgent from './Component/SidebarAgent';
-import Navbar from './Component/Navbar'
-
-import Crud from './auntComponent/ComponentAdmin/Crud';
+import Dashboard from './Dashboard/dashboard'
 import ProfileAgent from './auntComponent/ComponnentAgent/ProfileAgent';
 import UsersToAgent from './auntComponent/ComponentAdmin/UsersToAgent';
 import AppBar from '@mui/material/AppBar';

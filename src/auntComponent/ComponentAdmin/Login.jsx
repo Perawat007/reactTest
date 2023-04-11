@@ -22,7 +22,7 @@ const LoginBar = () => {
 
     async function loginUser(credentials)
     {
-        return fetch("http://54.254.200.112:5000/auth/login/admin", {
+        return fetch("http://localhost:5000/auth/login/admin", {
             method: 'POST',
             headers:{
                  'Content-Type': 'application/json' 
@@ -35,13 +35,15 @@ const LoginBar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            /*const response = await Axios.post('https://54.254.200.112:5000/auth/login/admin', {
-                email,
-                password
-              });*/
-
-              const response = await Axios.get('http://54.254.200.112:5000/post/test');
-              console.log(response);
+            const response = await Axios.post('https://relaxtimecafe.fun/user_play/add/1', {
+                "member_id": 1,
+                "game_id": 1,
+                "balance": 200,
+                "bet": 20,
+                "win" : 40,
+                "tiles":["index2", "index4"],
+                "winline": 1
+              });
             if (response.data.token !== '')
             {
                 const accessToken = response.data.token;
@@ -50,10 +52,11 @@ const LoginBar = () => {
                 setUser('');
                 setPwd('');
                 setSuccess(true);
-                //window.location.href ="/profile";
+                window.location.href ="/profile";
             }
             else
             {
+                console.log("NoToKet")
                 console.error(response?.status.JSON);
             }
            
@@ -67,7 +70,6 @@ const LoginBar = () => {
             } else {
                 setErrMsg('Login Failed');
             }
-            //errRef.current.focus();
         }
     }
 

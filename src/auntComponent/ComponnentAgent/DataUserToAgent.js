@@ -60,7 +60,7 @@ function DataUserToAgent(id){
     },[])
 
     const DataGet = () =>{
-        Axios.get("http://localhost:3000/post/user",{
+        Axios.get("http://localhost:5000/post/user",{
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -108,7 +108,7 @@ function DataUserToAgent(id){
       "username": username,
       "active" : active
     });
-    Axios.put("http://localhost:3000/post/updateUser/"+idUser,raw,{
+    Axios.put("http://localhost:5000/post/updateUser/"+idUser,raw,{
       headers: {
         'Authorization': `Bearer ${token}`
       }})
