@@ -47,7 +47,7 @@ export default function Crud(data){
             const tokenEn = encodeURIComponent(token)
             if (linkGame !== null){
               const link = linkGame +`?token=${tokenEn}`;
-              window.open(link);
+              window.open(link,'_blank');
             }
         }
       })
