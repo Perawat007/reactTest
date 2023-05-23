@@ -1,14 +1,10 @@
 import React from 'react';
 import Crud from './ComponentAdmin/Crud';
-import './Profile.css';
 
-
-function Profile(props) {
+const Profile = (row) => {
 
   return (
-    <div>
-    <Crud/>
-    </div>
+    <Crud data = {row}/>
   );
 }
 

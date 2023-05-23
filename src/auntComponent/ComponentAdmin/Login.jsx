@@ -1,62 +1,47 @@
 import React, {useRef, useState, useEffect, useContext } from 'react';
 import '../Login.css';
 import Axios from 'axios';
-
+import axios from '../../api/axios';
 const LoginBar = () => {
-    //const { setAuth } = useContext(AuthContext);
-    const userRef = useRef();
-    const errRef = useRef();
-
-    const [email, setUser] = useState('');
-    const [password, setPwd] = useState('');
+    const [username, setUser] = useState('member001');
+    const [password, setPwd] = useState('123456789');
+    const [ipAddress, setIp] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
-
-   /* useEffect(() => {
-        userRef.current.focus();
-    }, [])*/
-
+    let browserName = 'Unknown';
     useEffect(() => {
-        setErrMsg('');
-    }, [email, password])
+        Axios.get("https://ipapi.co/json/")
+          .then((response) => {
+            setIp(response.data.ip)
+          })
+        .catch(error => {
+          console.log('error', error);
+        });    
+    }, [username, password])
 
-    async function loginUser(credentials)
-    {
-        return fetch("http://localhost:5000/auth/login/admin", {
-            method: 'POST',
-            headers:{
-                 'Content-Type': 'application/json' 
-            },
-            withCredentials: true,
-            body: JSON.stringify(credentials)
-        }).then(data => data.json());
-    }
+    const [popupStyle, showPopup] = useState("hide")
+
 
     const handleSubmit = async (e) => {
+
+        showPopup("login-popup")
+        setTimeout(() => showPopup("hide"), 3000)
+
         e.preventDefault();
         try {
-            const response = await Axios.post('https://relaxtimecafe.fun/user_play/add/1', {
-                "member_id": 1,
-                "game_id": 1,
-                "balance": 200,
-                "bet": 20,
-                "win" : 40,
-                "tiles":["index2", "index4"],
-                "winline": 1
+            const response = await axios.post('login/member', {
+                    username: username,
+                    password: password,
+                    ip_address : ipAddress,
+                    browserName : browserName,
               });
-            if (response.data.token !== '')
-            {
+            if (response.data.token !== 'undefined'){
                 const accessToken = response.data.token;
-                localStorage.setItem('token',accessToken);
-                //setAuth({ email, accessToken });
+                await localStorage.setItem('token',accessToken);
                 setUser('');
                 setPwd('');
-                setSuccess(true);
                 window.location.href ="/profile";
             }
-            else
-            {
-                console.log("NoToKet")
+            else{
                 console.error(response?.status.JSON);
             }
            
@@ -73,30 +58,20 @@ const LoginBar = () => {
         }
     }
 
-    return (
-        <body>
-        <div class="full-page">
-        <div class="navbar">
-            <div>
-                <a href='website.html'>Login</a>
-            </div>
-            <nav>
-                <ul id='MenuItems'>
-                    <li><a href='#'>Home</a></li>
-                    <li><a href='#'>About Us</a></li>
-                    <li><a href='#'>Services</a></li>
-                    <li><a href='#'>Contact</a></li>
-                </ul>
-            </nav>
+    /*return (
+        <div className="full-page">
+        <div className="navbar">
+            <h1> Login </h1>
         </div>
-        <div>
-        <div class="form-box">
-        <form id='login' class='input-group-login' onSubmit={handleSubmit}>
-            <label htmlFor="email">Email:</label>
+        <div className="form-box">
+        <form id='login' className='input-group-login' onSubmit={handleSubmit}>
+            <label htmlFor="username">Username:</label>
                 <input
-                type="email"
-                class='input-field'
-                id="email"
+                type="text"
+                className ='input-field'
+                id="username"
+                value={username}
+                placeholder='username'
                 onChange={(e) => setUser(e.target.value)}
                 autoComplete="off"
                 required
@@ -105,17 +80,36 @@ const LoginBar = () => {
             <label htmlFor="password">Password:</label>
                 <input
                 type="password"
-                class='input-field'
-                onChange={(e) => setPwd(e.target.value)}
+                className ='input-field'
                 id="password"
+                value={password}
+                placeholder='password'
+                onChange={(e) => setPwd(e.target.value)}
                 required
             />
             <br></br>
-            <button type='submit' class='submit-btn'>Sign In</button>
+            <button type='submit' className='submit-btn'>Sign In</button>
         </form>
         </div>
         </div>
+    )*/
+
+    return (
+        <div className="cover">
+            <h1>Login</h1>
+            <input type="text" placeholder="username" />
+            <input type="password" placeholder="password" />
+
+            <div className="login-btn" onClick={handleSubmit}>Login</div>
+
+            <p className="text">Or login using</p>
+
+            <div className={popupStyle}>
+                <h3>Login Failed</h3>
+                <p>Username or password incorrect</p>
+            </div>
+            
         </div>
-    </body>
-            )}
+    )
+}
 export default LoginBar

@@ -65,3 +65,47 @@ body.active-modal {
     line-height: 2;
     z-index: -1;
 }
+
+.game-container {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+}
+
+.card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 20px;
+    background-color: #312838;
+}
+
+.card-font {
+    text-align: center;
+    color: #ffffff;
+}
+
+.card-image img {
+    width: 100%;
+}
+
+.card-action {
+    background-color: #ff9900;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 30px;
+    padding: .1rem;
+    border-radius: 10px;
+}
+.submit-button
+{
+    color: #000000;
+	padding: 10px 30px;
+    text-align: center;
+	cursor: pointer;
+	display: block;
+	margin: auto;
+	border: 0;
+	outline: none;
+	border-radius: 30px;
+}
