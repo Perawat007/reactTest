@@ -1,64 +1,62 @@
-import React, {useRef, useState, useEffect, useContext } from 'react';
-import '../Login.css';
-import Axios from 'axios';
-import axios from '../../api/axios';
+import React, { useRef, useState, useEffect, useContext } from "react";
+import "../Login.css";
+import Axios from "axios";
+import axios from "../../api/axios";
 const LoginBar = () => {
-    const [username, setUser] = useState('member001');
-    const [password, setPwd] = useState('123456789');
-    const [ipAddress, setIp] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    let browserName = 'Unknown';
-    useEffect(() => {
-        Axios.get("https://ipapi.co/json/")
-          .then((response) => {
-            setIp(response.data.ip)
-          })
-        .catch(error => {
-          console.log('error', error);
-        });    
-    }, [username, password])
+  const [username, setUser] = useState("member001");
+  const [password, setPwd] = useState("123456789");
+  const [ipAddress, setIp] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  let browserName = "Unknown";
+  useEffect(() => {
+    Axios.get("https://ipapi.co/json/")
+      .then((response) => {
+        setIp(response.data.ip);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, [username, password]);
 
-    const [popupStyle, showPopup] = useState("hide")
+  const [popupStyle, showPopup] = useState("hide");
 
+  const handleSubmit = async (e) => {
+    showPopup("login-popup");
+    setTimeout(() => showPopup("hide"), 3000);
 
-    const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("login/member", {
+        username: username,
+        password: password,
+        ip_address: ipAddress,
+        browserName: browserName,
+      });
 
-        showPopup("login-popup")
-        setTimeout(() => showPopup("hide"), 3000)
-
-        e.preventDefault();
-        try {
-            const response = await axios.post('login/member', {
-                    username: username,
-                    password: password,
-                    ip_address : ipAddress,
-                    browserName : browserName,
-              });
-            if (response.data.token !== 'undefined'){
-                const accessToken = response.data.token;
-                await localStorage.setItem('token',accessToken);
-                setUser('');
-                setPwd('');
-                window.location.href ="/profile";
-            }
-            else{
-                console.error(response?.status.JSON);
-            }
-           
-        } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-            }
-        }
+      if (response.data.token !== "undefined") {
+        const accessToken = response.data.token;
+        await localStorage.setItem("token", accessToken);
+        setUser("");
+        setPwd("");
+        window.location.href = "/profile";
+      } else {
+        console.error(response?.status.JSON);
+      }
+    } catch (err) {
+      alert('username และ password ไม่ถูกต้อง')
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
     }
+  };
 
-    /*return (
+  /* return (
         <div className="full-page">
         <div className="navbar">
             <h1> Login </h1>
@@ -94,22 +92,41 @@ const LoginBar = () => {
         </div>
     )*/
 
-    return (
-        <div className="cover">
-            <h1>Login</h1>
-            <input type="text" placeholder="username" />
-            <input type="password" placeholder="password" />
+  return (
+    <div>
+      <div className="login_form_container">
+        <div className="login_form">
+          <h2>Login</h2>
 
-            <div className="login-btn" onClick={handleSubmit}>Login</div>
-
-            <p className="text">Or login using</p>
-
-            <div className={popupStyle}>
-                <h3>Login Failed</h3>
-                <p>Username or password incorrect</p>
-            </div>
-            
+          <div className="input_group">
+            <i className="fa fa-user"></i>
+            <input
+              type="text"
+              placeholder="Username"
+              className="input_text"
+              value={username}
+              onChange={(e) => setUser(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input_group">
+            <i className="fa fa-unlock-alt"></i>
+            <input
+              type="password"
+              placeholder="Password"
+              className="input_text"
+              value={password}
+              onChange={(e) => setPwd(e.target.value)}
+              required
+            />
+          </div>
+          <div className="button_group" id="login_button">
+              <a onClick={handleSubmit}>Submit</a>
+          </div>
+          <div className="fotter"></div>
         </div>
-    )
-}
-export default LoginBar
+      </div>
+    </div>
+  );
+};
+export default LoginBar;

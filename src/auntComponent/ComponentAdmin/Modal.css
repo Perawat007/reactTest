@@ -1,3 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    background-color: #0c1022;
+}
+
 body.active-modal {
     overflow-y: hidden;
 }
@@ -9,7 +25,8 @@ body.active-modal {
     font-size: 18px;
 }
 
-.modal, .overlay {
+.modal,
+.overlay {
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -20,15 +37,16 @@ body.active-modal {
 }
 
 .overlay {
-    background: rgba(49,49,49,0.8);
+    background: rgba(49, 49, 49, 0.8);
 }
+
 .modal-content {
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     line-height: 1.4;
-    background: #f1f1f1;
+    background: #8f1c1c;
     padding: 14px 28px;
     border-radius: 3px;
     max-width: 600px;
@@ -50,7 +68,7 @@ body.active-modal {
     left: 35%;
     transform: translate(-50%, -50%);
     line-height: 1.4;
-    background: #f1f1f1;
+    background: #be0000;
     padding: 14px 28px;
     border-radius: 3px;
     max-width: 600px;
@@ -69,14 +87,20 @@ body.active-modal {
 .game-container {
     margin: 1rem 0;
     display: grid;
+    text-align: center;
+    justify-content: center;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
 }
 
 .card {
-    border: 1px solid #ddd;
+    display: block;
+    width: 200px;
+    border: 1px solid #c20000;
     padding: 1rem;
     border-radius: 20px;
+    text-align: center;
+    justify-content: center;
     background-color: #312838;
 }
 
@@ -94,18 +118,31 @@ body.active-modal {
     color: #ffffff;
     text-align: center;
     padding: 10px 30px;
-    padding: .1rem;
+    padding: 0.1rem;
     border-radius: 10px;
 }
-.submit-button
-{
+
+.submit-button {
     color: #000000;
-	padding: 10px 30px;
+    padding: 10px 30px;
     text-align: center;
-	cursor: pointer;
-	display: block;
-	margin: auto;
-	border: 0;
-	outline: none;
-	border-radius: 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+/* Media Queries */
+@media (max-width: 420px) {
+    .game-container {
+        grid-template-columns: repeat(1, 0.5fr);
+    }
+}
+
+@media (max-width: 300px) {
+
+    .modal-content,
+    .modal-contentUser {}
 }

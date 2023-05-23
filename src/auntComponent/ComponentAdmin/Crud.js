@@ -78,7 +78,7 @@ export default function Crud(data){
               {items.map((row) => (
                 <div key={row.id} className='card'>
                     <div className='card-image'>
-                        <img src = {row.img} alt=''/>
+                        <img src = {row.img} alt='' onClick={() => PlayGame(row.linkgame)}/>
                     </div>
                     <div className='card-content'>
                       <span className='card-title'></span>
