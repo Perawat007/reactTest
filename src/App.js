@@ -35,7 +35,11 @@ function App() {
         .then(response => {
           setData(response.data.data);
         })
-        .catch(error => console.log('error', error)
+        .catch(error => {
+          localStorage.removeItem("token")
+          window.location.href = "/";
+          console.log('error', error)
+        }
         );
     }
   }
