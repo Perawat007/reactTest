@@ -2,11 +2,14 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import "../Login.css";
 import Axios from "axios";
 import axios from "../../api/axios";
+import nft from "./nft.jpg";
 const LoginBar = () => {
   const [username, setUser] = useState("member001");
   const [password, setPwd] = useState("123456789");
   const [ipAddress, setIp] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [showPopupA, setShowPopup] = useState(false);
+
   let browserName = "Unknown";
   useEffect(() => {
     Axios.get("https://ipapi.co/json/")
@@ -40,10 +43,10 @@ const LoginBar = () => {
         setPwd("");
         window.location.href = "/profile";
       } else {
-        console.error(response?.status.JSON);
+        console.log(response?.status.JSON);
       }
     } catch (err) {
-      alert('username และ password ไม่ถูกต้อง')
+      setShowPopup(!showPopupA);
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
@@ -54,6 +57,14 @@ const LoginBar = () => {
         setErrMsg("Login Failed");
       }
     }
+  };
+
+  const style = {
+    color: 'red',
+};
+
+  const togglePopup = () => {
+    setShowPopup(!showPopupA);
   };
 
   /* return (
@@ -94,6 +105,27 @@ const LoginBar = () => {
 
   return (
     <div>
+      {showPopupA && (
+        <div className="overlay">
+          <div className="modalContainer">
+            <img src={nft} alt="/" />
+            <div className="modalRight">
+              <div className="content">
+                <p style={style}>Username หรือ Password ผิด</p>
+                <br/>
+                <h3>กรุณากรอก</h3>
+                <h3>username และ Passwordใหม่</h3>
+              </div>
+              <div className="btnContainer">
+                <button className="btnPrimary" onClick={togglePopup}>
+                  ตกลง
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="login_form_container">
         <div className="login_form">
           <h2>Login</h2>
@@ -121,7 +153,7 @@ const LoginBar = () => {
             />
           </div>
           <div className="button_group" id="login_button">
-              <a onClick={handleSubmit}>Submit</a>
+            <a onClick={handleSubmit}>Submit</a>
           </div>
           <div className="fotter"></div>
         </div>
