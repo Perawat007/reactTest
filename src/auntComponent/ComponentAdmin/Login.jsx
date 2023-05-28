@@ -12,6 +12,7 @@ const LoginBar = () => {
 
   let browserName = "Unknown";
   useEffect(() => {
+    handleSubmit();
     Axios.get("https://ipapi.co/json/")
       .then((response) => {
         setIp(response.data.ip);
@@ -23,15 +24,16 @@ const LoginBar = () => {
 
   const [popupStyle, showPopup] = useState("hide");
 
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async () => {
     showPopup("login-popup");
     setTimeout(() => showPopup("hide"), 3000);
 
-    e.preventDefault();
+    //e.preventDefault();
     try {
       const response = await axios.post("login/member", {
-        username: username,
-        password: password,
+        username: 'member001',
+        password: '123456789',
         ip_address: ipAddress,
         browserName: browserName,
       });
