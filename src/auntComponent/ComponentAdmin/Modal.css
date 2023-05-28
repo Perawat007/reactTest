@@ -134,6 +134,7 @@ body.active-modal {
     border-radius: 30px;
 }
 
+
 /* Media Queries */
 @media (max-width: 420px) {
     .game-container {
@@ -146,3 +147,35 @@ body.active-modal {
     .modal-content,
     .modal-contentUser {}
 }
+
+/* iPhone 13 Pro */
+@media (max-width: 375px) {
+    .game-container {
+        grid-template-columns: repeat(1, 0.5fr);
+    }
+
+    .modal-content,
+    .modal-contentUser {
+        min-width: 90%;
+    }
+}
+
+@media (max-width: 320px) {
+
+    /* Additional styles for smaller screens */
+    .game-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 428px) {
+    /* iPhone 13 Pro Max */
+    .game-container {
+      grid-template-columns: repeat(1, 0.5fr);
+    }
+    
+    .modal-content,
+    .modal-contentUser {
+      min-width: 90%;
+    }
+  }
